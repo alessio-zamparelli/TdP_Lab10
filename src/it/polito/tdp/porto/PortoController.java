@@ -39,10 +39,11 @@ public class PortoController {
 			return;
 		}
 		List<Author> coAutori = model.getCoAutoriOf(autore);
-		txtResult.setText("Coautori di " + autore);
+		txtResult.setText("Coautori di " + autore + "\n");
 		coAutori.forEach(a->txtResult.appendText(a.toString() + "\n"));
 		List<Author> nonCoAutori = model.getAutori();
 		nonCoAutori.removeAll(model.getCoAutoriOf(autore));
+		boxSecondo.getItems().setAll(nonCoAutori);
 	}
 
 	@FXML
@@ -50,6 +51,8 @@ public class PortoController {
 		Author autore1 = boxPrimo.getSelectionModel().getSelectedItem();
 		Author autore2 = boxSecondo.getSelectionModel().getSelectedItem();
 		List<Paper> res = model.collegaAutori(autore1, autore2);
+		txtResult.appendText("Lista di articoli da " + autore1.getId() + " a " + autore2.getId() + "\n\n");
+		res.forEach(a->txtResult.appendText(a.toString() + "\n"));
 	}
 
 	@FXML
